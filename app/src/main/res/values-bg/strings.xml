@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">PointFinder</string>
+    <string name="close">Затвори</string>
+    <string name="error">Грешка</string>
+    <string name="first_name">Име</string>
+    <string name="last_name">Фамилия</string>
+    <string name="email">Имейл адрес</string>
+    <string name="password">Парола</string>
+    <string name="confirm_password">Потвърди парола</string>
+    <string name="login">Влезни</string>
+    <string name="age">Години</string>
+    <string name="welcomeMsg">Намери най - добрите места\nпо света\nпосетени от други туристи</string> //todo FIX
+    <string name="startMsg">Започни</string>
+    <string name="noAccount">Нямате ли акаунт? </string>
+    <string name="register">Регистрирай се</string>
+    <string name="changeLanguage">Смени езика</string>
+    <string name="birthDate">Дата на раждане</string>
+    <string name="AppTitle">PointFinder</string>
+    <string name="type">Тип</string>
+    <string name="city">Град</string>
+    <string name="region">Държава</string>
+    <string name="searchLocation">Потърси около мен</string>
+    <string name="rate">Оцени</string>`
+    <string name="rating">Оценки:</string>`
+    <string name="comments">Коментари</string>
+    <string name="directions">Посоки</string>
+    <string name="done">Готово</string>
+    <string name="details">Детайли</string>
+    <string name="routes">Посоки</string>
+    <string name="ratedLocations">Оценени локации</string>
+    <string name="avgRating">Средна оценка</string>
+    <string name="signOut">Излез</string>
+    <string name="changeMap">Промяна на изгледа</string>
+    <string name="comment">Напиши коментар</string>
+    <string name="information">Информация</string>
+    <string name="locations_permission_deny">За да позволите Вашта локация моля отидете в Настройки</string>
+    <string name="cancel">Откажи</string>
+    <string name="settings">Настройки</string>
+    <string name="error_while_searching">Грешка при търсенето</string>
+    <string name="register_error">Моля въведете съвпадащи пароли</string>
+    <string name="name">Име</string>
+    <string name="address">Адрес</string>
+    <string name="camera_forbidden">Достъпът до камерата е отказан</string>
+    <string name="camera_failed">Проблем с камерата</string>
+    <string name="invalid_registration">Моля въведете коректен имайл и имената Ви поне да са над 6 символа</string>
+
+</resources>

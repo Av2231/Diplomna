@@ -1,0 +1,146 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/profilePage"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mainColor"
+    >
+
+
+
+    <RelativeLayout
+        android:id="@+id/userInformationSection"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_options_window"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp">
+
+        <ImageView
+            android:id="@+id/userProfileImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/big_user_alt"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            />
+
+        <TextView
+            android:id="@+id/userFullName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColor"
+            android:text=""
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_alignTop="@id/userProfileImage"
+            android:layout_toEndOf="@id/userProfileImage"
+            android:layout_marginStart="30dp"/>
+
+        <TextView
+            android:id="@+id/userDob"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColor"
+            android:text=""
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_below="@id/userFullName"
+            android:layout_toEndOf="@id/userProfileImage"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"/>
+
+
+        <TextView
+            android:id="@+id/userEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColor"
+            android:text=""
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_below="@id/userDob"
+            android:layout_toEndOf="@id/userProfileImage"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="30dp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/userAppInfo"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_options_window"
+       android:layout_centerHorizontal="true"
+        android:layout_marginStart="50dp"
+        android:layout_centerVertical="true"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp">
+
+        <TextView
+            android:id="@+id/ratedLocations"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ratedLocations"
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:textColor="@color/textColor"/>
+
+
+        <TextView
+            android:id="@+id/avgRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/avgRating"
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:textColor="@color/textColor"
+            android:layout_below="@id/ratedLocations"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/commentScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/comments"
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:textColor="@color/textColor"
+            android:layout_below="@id/avgRating"
+            android:layout_marginTop="20dp"/>
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/signOutLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="90dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="50dp"
+        android:background="@drawable/round_options_window">
+
+        <TextView
+            android:id="@+id/signOutText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColor"
+            android:text="@string/signOut"
+            android:textStyle="bold"
+            android:textSize="30sp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"/>
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>
+

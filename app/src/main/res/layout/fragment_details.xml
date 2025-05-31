@@ -1,0 +1,129 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mainColor">
+
+    <ImageView
+        android:id="@+id/HotelPng"
+        android:layout_width="329dp"
+        android:layout_height="232dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@mipmap/details_img"/>
+
+    <ImageView
+        android:id="@+id/firstDelimiter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/HotelPng"
+        android:background="@mipmap/line"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/locationName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/firstDelimiter"
+        android:layout_marginTop="20dp"
+        android:text="Name: ala bala Vasko"
+        android:textColor="@color/textColor"
+        android:layout_marginStart="20dp"
+        android:textSize="25sp"
+        />
+
+    <TextView
+        android:id="@+id/locationAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/locationName"
+        android:layout_marginTop="25dp"
+        android:text="Address: ala bala Vasko"
+        android:textColor="@color/textColor"
+        android:layout_marginStart="20dp"
+        android:textSize="25sp"
+        />
+
+    <TextView
+        android:id="@+id/locationRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/locationAddress"
+        android:layout_marginTop="25dp"
+        android:text="@string/rating"
+        android:textColor="@color/textColor"
+        android:layout_marginStart="20dp"
+        android:textSize="25sp"
+        />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        style="?android:attr/ratingBarStyleIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/rateButton"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="9dp"
+        android:layout_toEndOf="@+id/locationRating"
+        android:isIndicator="false"
+        android:numStars="5"
+        android:progressTint="#FFCC01"
+        android:stepSize="0.5" />
+
+    <Button
+        android:id="@+id/rateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/linearLayout"
+        android:layout_alignParentStart="true"
+        android:visibility="invisible"
+        android:layout_marginStart="166dp"
+        android:layout_marginBottom="11dp"
+        android:background="@drawable/round_button"
+        android:text="@string/rate"
+        android:textColor="@color/textColor" />
+
+    <ImageView
+        android:id="@+id/secondDelimiter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/locationRating"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="66dp"
+        android:background="@mipmap/line" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:layout_below="@id/secondDelimiter"
+        android:orientation="horizontal"
+        android:padding="15dp"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/commentsButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/round_button"
+            android:text="@string/comments"
+            android:textColor="@color/textColor" />
+
+        <Button
+            android:id="@+id/directionsButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/round_button"
+            android:text="@string/directions"
+            android:textColor="@color/textColor" />
+
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

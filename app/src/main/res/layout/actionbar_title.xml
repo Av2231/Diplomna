@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/topActionBar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/buttonColor">
+
+
+    <ImageView
+        android:id="@+id/world_img"
+        android:layout_width="65dp"
+        android:layout_height="45dp"
+        android:background="@mipmap/world_img">
+
+    </ImageView>
+
+
+    <TextView
+        android:id="@+id/MainTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/world_img"
+        android:layout_marginLeft="10dp"
+        android:maxLines="1"
+        android:text="@string/AppTitle"
+        android:textColor="@color/textColor"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:gravity="center_vertical"
+        android:visibility="visible"
+        app:autoSizeTextType="uniform" />
+
+
+</RelativeLayout>

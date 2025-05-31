@@ -1,0 +1,107 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mainColor"
+    >
+
+    <RelativeLayout
+        android:id="@+id/settingsPanel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_options_window"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="50dp">
+
+        <TextView
+            android:id="@+id/changeLanguageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/changeLanguage"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/textColor"
+            android:textSize="30sp"
+            android:layout_marginTop="20dp"
+            />
+
+        <ImageView
+            android:id="@+id/firstDelimiter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/text_color_delimiter"
+            android:layout_below="@+id/changeLanguageButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="35dp"
+            />
+
+        <TextView
+            android:id="@+id/changeMapButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/firstDelimiter"
+            android:text="@string/changeMap"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/textColor"
+            android:textSize="30sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"/>
+
+
+<!--        <ImageView-->
+<!--            android:id="@+id/secondDelimiter"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@+id/satelliteMapButton"-->
+<!--            android:layout_centerHorizontal="true"-->
+<!--            android:layout_marginStart="60dp"-->
+<!--            android:layout_marginTop="15dp"-->
+<!--            android:background="@mipmap/text_color_delimiter" />-->
+
+        <ImageView
+            android:id="@+id/satelliteMapButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/changeMapButton"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="35dp"
+            android:background="@mipmap/satelitte_map"
+            android:layout_marginBottom="30dp"/>
+
+
+        <ImageView
+            android:id="@+id/normalMapButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/changeMapButton"
+            android:layout_alignParentStart="true"
+            android:background="@mipmap/normal_ma"
+            android:layout_marginStart="30dp" />
+
+        <ImageView
+            android:id="@+id/terrainMapButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/changeMapButton"
+            android:layout_centerInParent="true"
+            android:background="@mipmap/terain_map"/>
+
+
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/settingsPanel"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="31dp"
+        android:layout_marginEnd="193dp"
+        android:layout_marginBottom="360dp"
+        android:visibility="invisible" />
+
+
+</RelativeLayout>

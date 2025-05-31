@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mainColor">
+
+    <ImageView
+        android:id="@+id/welcomePng"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="165dp"
+        android:background="@mipmap/welcome_img"/>
+
+    <TextView
+        android:id="@+id/welcomeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/welcomePng"
+        android:layout_marginTop="70dp"
+        android:layout_centerHorizontal="true"
+        android:text="@string/welcomeMsg"
+        android:textStyle="bold"
+        android:textSize="19sp"
+        />
+
+    <Button
+        android:id="@+id/getStartedButton"
+        android:layout_width="match_parent"
+        android:layout_marginStart="75dp"
+        android:layout_height="70dp"
+        android:layout_below="@+id/welcomeTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:background="@drawable/round_button"
+        android:text="@string/startMsg"
+        android:textColor="@color/textColor"
+        android:textStyle="bold"
+        android:textSize="21dp"
+        />
+</RelativeLayout>
