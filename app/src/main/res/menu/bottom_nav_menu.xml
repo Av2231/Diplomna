@@ -7,7 +7,7 @@
         />
     <item
         android:id="@+id/request"
-        android:icon="@mipmap/add_filter"
+        android:icon="@mipmap/filter"
         android:title=""
         />
 
