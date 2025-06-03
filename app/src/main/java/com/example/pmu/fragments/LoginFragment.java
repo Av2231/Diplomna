@@ -62,28 +62,30 @@ public class LoginFragment extends BaseFragment {
         email = String.valueOf(emailEditText.getText());
         password = String.valueOf(passwordEditText.getText());
 
-        RequestBuilder.login(email, password, new LoginAndRegisterListener() {
-            @Override
-            public void onSuccess() {
-                progressBar.setVisibility(View.INVISIBLE);
-                errorWhileLogging.setVisibility(View.INVISIBLE);
-                addFragment((((MainActivity) getActivity()).homePageFragment));
-            }
+        addFragment((((MainActivity) getActivity()).homePageFragment));
 
-            @Override
-            public void onFailure(String message) {
-                progressBar.setVisibility(View.INVISIBLE);
-                errorWhileLogging.setVisibility(View.VISIBLE);
-                errorWhileLogging.setText(message);
-            }
-
-            @Override
-            public void onErrorResponse(String message) {
-                progressBar.setVisibility(View.INVISIBLE);
-                errorWhileLogging.setVisibility(View.VISIBLE);
-                errorWhileLogging.setText(message);
-            }
-        });
+//        RequestBuilder.login(email, password, new LoginAndRegisterListener() {
+//            @Override
+//            public void onSuccess() {
+//                progressBar.setVisibility(View.INVISIBLE);
+//                errorWhileLogging.setVisibility(View.INVISIBLE);
+//                addFragment((((MainActivity) getActivity()).homePageFragment));
+//            }
+//
+//            @Override
+//            public void onFailure(String message) {
+//                progressBar.setVisibility(View.INVISIBLE);
+//                errorWhileLogging.setVisibility(View.VISIBLE);
+//                errorWhileLogging.setText(message);
+//            }
+//
+//            @Override
+//            public void onErrorResponse(String message) {
+//                progressBar.setVisibility(View.INVISIBLE);
+//                errorWhileLogging.setVisibility(View.VISIBLE);
+//                errorWhileLogging.setText(message);
+//            }
+//        });
 
 
     }

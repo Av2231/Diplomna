@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
     public HomePageFragment_ homePageFragment;
     public AddFilterFragment_ addFilterFragment;
     public ProfileFragment_ profileFragment;
+    private Fragment activeFragment;
+
     private TextView titleView;
 
     @Override
@@ -59,24 +61,21 @@ public class MainActivity extends AppCompatActivity {
         addFilterFragment = new AddFilterFragment_();
         profileFragment = new ProfileFragment_();
         addFilterFragment.setSendDataLocation(homePageFragment);
-        navBar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-               item.setChecked(true);
-                switch (item.getItemId()) {
-                    case R.id.map:
-                        addFragment(homePageFragment);
-                        break;
-                    case R.id.request:
-                        addFragment(addFilterFragment);
-                        break;
-                    case R.id.profile:
-                        addFragment(profileFragment);
-                        break;
-                }
-                return false;
-            }
-        });
+
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment, profileFragment, "PROFILE")
+                .hide(profileFragment)
+                .commit();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment, addFilterFragment, "REQUEST")
+                .hide(addFilterFragment)
+                .commit();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment, homePageFragment, "HOME")
+                .commit();
+
+        setupNavBar();
+
         if (AppService.getInstance().isOpenedFirst()) {
             addFragmentAndClearBackstack(new LoginFragment_());
         } else {
@@ -118,6 +117,51 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void setupNavBar() {
+        navBar = findViewById(R.id.navBar);
+
+        navBar.setOnItemSelectedListener(item -> {
+            Fragment selectedFragment = null;
+
+            switch (item.getItemId()) {
+                case R.id.map:
+                    selectedFragment = homePageFragment;
+                    navBar.setSelectedItemId(0);
+                    break;
+                case R.id.request:
+                    selectedFragment = addFilterFragment;
+                    navBar.setSelectedItemId(1);
+                    break;
+                case R.id.profile:
+                    selectedFragment = profileFragment;
+                    navBar.setSelectedItemId(2);
+                    break;
+            }
+
+            if (selectedFragment == null || selectedFragment == activeFragment)
+                return true;
+
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+            if (activeFragment != null && activeFragment.isAdded()) {
+                transaction.hide(activeFragment);
+            }
+
+            if (selectedFragment.isAdded()) {
+                transaction.show(selectedFragment);
+            } else {
+                transaction.add(R.id.fragment, selectedFragment);
+            }
+
+            transaction.commit();
+
+            activeFragment = selectedFragment;
+
+            return true;
+        });
+    }
+
+
     public void setActionBarTitle(String string) {
         titleView.setText(string);
     }
@@ -154,16 +198,13 @@ public class MainActivity extends AppCompatActivity {
     public void addFragmentAndClearBackstack(Fragment fragment) {
         hideSoftKeyboard();
 
-        FragmentManager manager = getSupportFragmentManager();
-        if (manager.getBackStackEntryCount() > 0) {
-            FragmentManager.BackStackEntry first = manager.getBackStackEntryAt(0);
-            manager.popBackStack(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        }
+        FragmentManager fm = getSupportFragmentManager();
+        fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
-        String tag = fragment.getClass().getSimpleName();
-        FragmentTransaction ft = manager.beginTransaction();
+        FragmentTransaction ft = fm.beginTransaction();
+
         ft.setCustomAnimations(0, 0, 0, 0);
-        ft.replace(R.id.fragment, fragment, tag);
+        ft.replace(R.id.fragment, fragment);
         ft.commit();
     }
 
