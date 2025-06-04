@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PointFinder</string>
+    <string name="app_name">Book2Play</string>
     <string name="close">Затвори</string>
     <string name="error">Грешка</string>
     <string name="first_name">Име</string>
@@ -9,13 +9,13 @@
     <string name="confirm_password">Потвърди парола</string>
     <string name="login">Влезни</string>
     <string name="age">Години</string>
-    <string name="welcomeMsg">Намери най - добрите места\nпо света\nпосетени от други туристи</string> //todo FIX
+    <string name="welcomeMsg">Резервирай спортни игрища близо до теб\nи прочети надеждни отзиви от играчи</string>
     <string name="startMsg">Започни</string>
     <string name="noAccount">Нямате ли акаунт? </string>
     <string name="register">Регистрирай се</string>
     <string name="changeLanguage">Смени езика</string>
     <string name="birthDate">Дата на раждане</string>
-    <string name="AppTitle">PointFinder</string>
+    <string name="AppTitle">Book2Play</string>
     <string name="type">Тип</string>
     <string name="city">Град</string>
     <string name="region">Държава</string>

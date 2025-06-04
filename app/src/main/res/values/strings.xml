@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PointFinder</string>
+    <string name="app_name">Book2Play</string>
     <string name="close">Close</string>
     <string name="error">Error</string>
     <string name="first_name">First name</string>
@@ -9,13 +9,13 @@
     <string name="confirm_password">Confirm password</string>
     <string name="login">Login</string>
     <string name="age">Age</string>
-    <string name="welcomeMsg">Find out the best locations\naround you to spend time\nand see feedback of people</string>
+    <string name="welcomeMsg">Book sports courts near you\nand read trusted player reviews</string>
     <string name="startMsg">get started</string>
     <string name="noAccount">Don\'t have an account? </string>
     <string name="register">Register</string>
     <string name="changeLanguage">Change Language</string>
     <string name="birthDate">Date of Birth</string>
-    <string name="AppTitle">PointFinder</string>
+    <string name="AppTitle">Book2Play</string>
     <string name="type">Type</string>
     <string name="city">City</string>
     <string name="region">Region</string>
