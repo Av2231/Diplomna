@@ -16,9 +16,11 @@
     <string name="changeLanguage">Смени езика</string>
     <string name="birthDate">Дата на раждане</string>
     <string name="AppTitle">Book2Play</string>
-    <string name="type">Тип</string>
-    <string name="city">Град</string>
-    <string name="region">Държава</string>
+    <string name="category">Категория</string>
+    <string name="region">Регион</string>
+    <string name="day">Ден</string>
+    <string name="from">От час</string>
+    <string name="to">До час</string>
     <string name="searchLocation">Потърси около мен</string>
     <string name="rate">Оцени</string>`
     <string name="rating">Оценки:</string>`

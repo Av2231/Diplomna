@@ -16,9 +16,11 @@
     <string name="changeLanguage">Change Language</string>
     <string name="birthDate">Date of Birth</string>
     <string name="AppTitle">Book2Play</string>
-    <string name="type">Type</string>
-    <string name="city">City</string>
+    <string name="category">Category</string>
     <string name="region">Region</string>
+    <string name="day">Day</string>
+    <string name="from">Available from</string>
+    <string name="to">Available to</string>
     <string name="searchLocation">Search around me</string>
     <string name="rate">Rate</string>
     <string name="rating">Rating:</string>
