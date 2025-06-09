@@ -50,6 +50,8 @@ public class DetailsFragment extends BaseFragment {
     private PinMarker marker;
     @ViewById
     RatingBar ratingBar;
+    @ViewById
+    Button reserveButton;
 
     @Click
     void contentLayout() {
@@ -94,6 +96,12 @@ public class DetailsFragment extends BaseFragment {
         CommentsFragment_ commentsFragment = new CommentsFragment_();
         commentsFragment.setLocationId(generated_location_id);
         addFragment(commentsFragment);
+    }
+
+    @Click
+    public void reserveButton(){
+
+
     }
 
     private void checkLocation(){

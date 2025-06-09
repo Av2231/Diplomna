@@ -95,7 +95,7 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/secondDelimiter"
         android:orientation="horizontal"
         android:padding="15dp"
@@ -123,6 +123,15 @@
 
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/reserveButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linearLayout"
+        android:background="@drawable/round_button"
+        android:text="@string/reserve"
+        android:textColor="@color/textColor" />
 
 
 
