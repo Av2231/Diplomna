@@ -10,17 +10,17 @@
         android:clickable="true">
 
 
-        <EditText
-            android:id="@+id/typeEditText"
+        <Spinner
+            android:id="@+id/categorySpinner"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:layout_above="@id/cityEditText"
+            android:layout_above="@id/regionSpinner"
             android:layout_centerHorizontal="true"
             android:layout_marginStart="100dp"
             android:layout_marginBottom="50dp"
             android:background="@drawable/round_input"
             android:gravity="center"
-            android:hint="@string/type" />
+            android:hint="@string/category" />
 
 
         <ProgressBar
@@ -28,26 +28,26 @@
             style="?android:attr/progressBarStyle"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_below="@id/addFilterButton"
             android:layout_alignBottom="@+id/addFilterButton"
             android:layout_centerHorizontal="true"
-            android:layout_below="@id/addFilterButton"
             android:layout_marginTop="30dp"
             android:visibility="invisible" />
 
-        <EditText
-            android:id="@+id/cityEditText"
+        <Spinner
+            android:id="@+id/regionSpinner"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:layout_above="@+id/regionEditText"
+            android:layout_above="@+id/dayTextView"
             android:layout_centerHorizontal="true"
             android:layout_marginStart="100dp"
             android:layout_marginBottom="50dp"
             android:background="@drawable/round_input"
             android:gravity="center"
-            android:hint="@string/city" />
+            android:hint="@string/region" />
 
-        <EditText
-            android:id="@+id/regionEditText"
+        <TextView
+            android:id="@+id/dayTextView"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_centerHorizontal="true"
@@ -55,17 +55,50 @@
             android:layout_marginStart="100dp"
             android:background="@drawable/round_input"
             android:gravity="center"
-            android:hint="@string/region" />
+            android:hint="@string/day" />
+
+        <LinearLayout
+            android:id="@+id/hoursLayout"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_below="@id/dayTextView"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="50dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/fromHoursTextView"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/round_input"
+                android:gravity="center"
+                android:hint="@string/from" />
+
+            <Space
+                android:layout_width="30dp"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:id="@+id/toHoursTextView"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/round_input"
+                android:gravity="center"
+                android:hint="@string/to" />
+        </LinearLayout>
 
 
         <Button
             android:id="@+id/addFilterButton"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:layout_below="@+id/regionEditText"
+            android:layout_below="@+id/hoursLayout"
             android:layout_centerHorizontal="true"
             android:layout_marginStart="100dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="50dp"
             android:background="@drawable/round_button"
             android:text="@string/searchLocation"
             android:textColor="@color/textColor"
@@ -76,7 +109,7 @@
             android:id="@+id/errorWhileSearching"
             android:layout_width="270dp"
             android:layout_height="60dp"
-            android:layout_above="@+id/typeEditText"
+            android:layout_above="@+id/categorySpinner"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="74dp"
             android:layout_marginBottom="15dp"

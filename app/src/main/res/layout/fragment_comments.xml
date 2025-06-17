@@ -23,10 +23,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="50dp"
-            android:background="@drawable/round_options_window"
-
-
-            >
+            android:background="@drawable/round_options_window">
 
             <EditText
                 android:layout_width="240dp"

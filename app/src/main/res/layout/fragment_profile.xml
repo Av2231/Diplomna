@@ -114,6 +114,18 @@
             android:layout_below="@id/avgRating"
             android:layout_marginTop="20dp"/>
 
+        <TextView
+            android:id="@+id/reservations"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/reservations"
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:textColor="@color/textColor"
+            android:layout_below="@id/commentScore"
+            android:layout_marginTop="20dp"/>
+
     </RelativeLayout>
 
 

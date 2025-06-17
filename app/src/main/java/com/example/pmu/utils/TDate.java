@@ -46,4 +46,18 @@ public class TDate {
         df.setTimeZone(TimeZone.getTimeZone(TDate.getTimeZoneStringForBuildType()));
         return df.format(date);
     }
+
+    public static String convertToHourMinuteStringForCurrentLocale(Date date) {
+        return convertToHourMinuteStringForLocale(date, new Locale(LanguageManager.getApplicationLanguage()));
+    }
+
+    public static String convertToHourMinuteStringForLocale(Date date, Locale locale) {
+        if (date == null || date.getTime() == 0) {
+            return "";
+        }
+
+        DateFormat df = new SimpleDateFormat("HH:mm", locale);
+        df.setTimeZone(TimeZone.getTimeZone(TDate.getTimeZoneStringForBuildType()));
+        return df.format(date);
+    }
 }

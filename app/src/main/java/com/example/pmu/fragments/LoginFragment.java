@@ -9,11 +9,10 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-
 import com.example.pmu.R;
-import com.example.pmu.interfaces.LoginAndRegisterListener;
 import com.example.pmu.activity.MainActivity;
-import com.example.pmu.utils.RequestBuilder;
+import com.example.pmu.interfaces.LoginAndRegisterListener;
+import com.example.pmu.utils.ServerCommunication;
 
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
@@ -62,30 +61,28 @@ public class LoginFragment extends BaseFragment {
         email = String.valueOf(emailEditText.getText());
         password = String.valueOf(passwordEditText.getText());
 
-        addFragment((((MainActivity) getActivity()).homePageFragment));
+        ServerCommunication.login(email, password, new LoginAndRegisterListener() {
+            @Override
+            public void onSuccess() {
+                progressBar.setVisibility(View.INVISIBLE);
+                errorWhileLogging.setVisibility(View.INVISIBLE);
+                addFragment((((MainActivity) getActivity()).homePageFragment));
+            }
 
-//        RequestBuilder.login(email, password, new LoginAndRegisterListener() {
-//            @Override
-//            public void onSuccess() {
-//                progressBar.setVisibility(View.INVISIBLE);
-//                errorWhileLogging.setVisibility(View.INVISIBLE);
-//                addFragment((((MainActivity) getActivity()).homePageFragment));
-//            }
-//
-//            @Override
-//            public void onFailure(String message) {
-//                progressBar.setVisibility(View.INVISIBLE);
-//                errorWhileLogging.setVisibility(View.VISIBLE);
-//                errorWhileLogging.setText(message);
-//            }
-//
-//            @Override
-//            public void onErrorResponse(String message) {
-//                progressBar.setVisibility(View.INVISIBLE);
-//                errorWhileLogging.setVisibility(View.VISIBLE);
-//                errorWhileLogging.setText(message);
-//            }
-//        });
+            @Override
+            public void onFailure(String message) {
+                progressBar.setVisibility(View.INVISIBLE);
+                errorWhileLogging.setVisibility(View.VISIBLE);
+                errorWhileLogging.setText(message);
+            }
+
+            @Override
+            public void onErrorResponse(String message) {
+                progressBar.setVisibility(View.INVISIBLE);
+                errorWhileLogging.setVisibility(View.VISIBLE);
+                errorWhileLogging.setText(message);
+            }
+        });
 
 
     }

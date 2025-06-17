@@ -21,10 +21,13 @@
     <string name="day">Day</string>
     <string name="from">Available from</string>
     <string name="to">Available to</string>
+    <string name="validation_fail">Invalid data added to form please check again!</string>
     <string name="searchLocation">Search around me</string>
     <string name="rate">Rate</string>
     <string name="rating">Rating:</string>
+    <string name="availableFrom">Available from: </string>
     <string name="comments">Comments</string>
+    <string name="reservations">Reservations</string>
     <string name="directions">Directions</string>
     <string name="reserve">Reserve</string>
     <string name="done">Done</string>

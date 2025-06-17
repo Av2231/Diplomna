@@ -21,10 +21,13 @@
     <string name="day">Ден</string>
     <string name="from">От час</string>
     <string name="to">До час</string>
+    <string name="validation_fail">Невалидни данни са въведени във формата. Моля, проверете отново!</string>
     <string name="searchLocation">Потърси около мен</string>
     <string name="rate">Оцени</string>`
     <string name="rating">Оценки:</string>`
+    <string name="availableFrom">Свободно от: </string>
     <string name="comments">Коментари</string>
+    <string name="reservations">Резервации</string>
     <string name="directions">Посоки</string>
     <string name="reserve">Резервирай</string>
     <string name="done">Готово</string>

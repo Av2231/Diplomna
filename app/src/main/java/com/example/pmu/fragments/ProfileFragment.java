@@ -1,7 +1,5 @@
 package com.example.pmu.fragments;
 
-import static android.app.Activity.RESULT_OK;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -20,16 +18,19 @@ import androidx.core.content.ContextCompat;
 import com.example.pmu.R;
 import com.example.pmu.activity.MainActivity;
 import com.example.pmu.interfaces.AddNewProfilePictureListener;
+import com.example.pmu.interfaces.ReservationsListener;
 import com.example.pmu.interfaces.UserCommentScoreListener;
 import com.example.pmu.interfaces.UserRatingScoreListener;
+import com.example.pmu.models.LocationModel;
 import com.example.pmu.models.User;
-import com.example.pmu.utils.RequestBuilder;
+import com.example.pmu.utils.ServerCommunication;
 
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 
 @EFragment(R.layout.fragment_profile)
 public class ProfileFragment extends BaseFragment {
@@ -44,6 +45,8 @@ public class ProfileFragment extends BaseFragment {
     TextView ratedLocations;
     @ViewById
     TextView commentScore;
+    @ViewById
+    TextView reservations;
     @ViewById
     TextView avgRating;
     @ViewById
@@ -75,7 +78,7 @@ public class ProfileFragment extends BaseFragment {
     }
 
     private void getUserRatingScore(String userId) {
-        RequestBuilder.getUserRatingScore(userId, new UserRatingScoreListener() {
+        ServerCommunication.getUserRatingScore(userId, new UserRatingScoreListener() {
             @Override
             public void onSuccess(String average_rate, String rate_score) {
                 double rating = Double.parseDouble(average_rate);
@@ -92,7 +95,7 @@ public class ProfileFragment extends BaseFragment {
     }
 
     private void getUserCommentScore(String userId) {
-        RequestBuilder.getUserCommentScore(userId, new UserCommentScoreListener() {
+        ServerCommunication.getUserCommentScore(userId, new UserCommentScoreListener() {
             @Override
             public void onSuccess(String score) {
                 commentScore.setText(getString(R.string.comments) + ": " + score);
@@ -109,6 +112,27 @@ public class ProfileFragment extends BaseFragment {
     void signOutLayout() {
         User.getInstance().clearInstance();
         ((MainActivity) getActivity()).resetApplication();
+    }
+    @Click
+    void reservations(){
+        ServerCommunication.getUserReservations(User.getInstance().getId(), new ReservationsListener() {
+            @Override
+            public void onSuccess(ArrayList<LocationModel> reservations) {
+                ReservationFragment_ fragment = new ReservationFragment_();
+                fragment.setReservations(reservations);
+                addFragment(fragment);
+            }
+
+            @Override
+            public void onFailure(String message) {
+
+            }
+
+            @Override
+            public void onErrorResponse(String message) {
+
+            }
+        });
     }
 
 
@@ -146,7 +170,7 @@ public class ProfileFragment extends BaseFragment {
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             String convertedImageBase64 = bitmapToBase64(imageBitmap);
             User.getInstance().setImage(convertedImageBase64);
-            RequestBuilder.newProfilePicture(convertedImageBase64, User.getInstance().getId(), new AddNewProfilePictureListener() {
+            ServerCommunication.newProfilePicture(convertedImageBase64, User.getInstance().getId(), new AddNewProfilePictureListener() {
                 @Override
                 public void onSuccess() {
                     User.getInstance().setImage(convertedImageBase64);

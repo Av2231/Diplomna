@@ -1,13 +1,8 @@
 package com.example.pmu.fragments;
 
-import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,7 +18,7 @@ import com.example.pmu.interfaces.NewLocationListener;
 import com.example.pmu.interfaces.RateLocationListener;
 import com.example.pmu.models.PinMarker;
 import com.example.pmu.models.User;
-import com.example.pmu.utils.RequestBuilder;
+import com.example.pmu.utils.ServerCommunication;
 
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
@@ -105,7 +100,7 @@ public class DetailsFragment extends BaseFragment {
     }
 
     private void checkLocation(){
-        RequestBuilder.checkIfLocationIsExisting(marker.getId(), new NewLocationListener() {
+        ServerCommunication.checkIfLocationIsExisting(marker.getId(), new NewLocationListener() {
             @Override
             public void onSuccess(String locationId) {
                 generated_location_id = locationId;
@@ -124,7 +119,7 @@ public class DetailsFragment extends BaseFragment {
         });
     }
     private void addLocation(String locationId){
-        RequestBuilder.addNewLocation(locationId, new NewLocationListener() {
+        ServerCommunication.addNewLocation(locationId, new NewLocationListener() {
             @Override
             public void onSuccess(String locationId) {
                 generated_location_id = locationId;
@@ -135,7 +130,7 @@ public class DetailsFragment extends BaseFragment {
         });
     }
     private void addRate(String generatedId,String userId,String rate){
-        RequestBuilder.rateLocation(generatedId, userId, rate, new RateLocationListener() {
+        ServerCommunication.rateLocation(generatedId, userId, rate, new RateLocationListener() {
             @Override
             public void onSuccess() {
                 ratingBar.setIsIndicator(true);
@@ -148,7 +143,7 @@ public class DetailsFragment extends BaseFragment {
         });
     }
     private void getRating(String generatedId){
-        RequestBuilder.getLocationRating(generatedId, new LocationRatingListener() {
+        ServerCommunication.getLocationRating(generatedId, new LocationRatingListener() {
             @Override
             public void onSuccess(String average_rating) {
                 double rating = Double.parseDouble(average_rating);
@@ -163,7 +158,7 @@ public class DetailsFragment extends BaseFragment {
     }
 
     private void checkIfUserRatedLocation(String generatedId,String userId){
-        RequestBuilder.checkIfUserRatedLocation(generatedId, userId, new AlreadyRatedLocationListener() {
+        ServerCommunication.checkIfUserRatedLocation(generatedId, userId, new AlreadyRatedLocationListener() {
             @Override
             public void onSuccess(String rated) {
                 if(rated.equals("true")){

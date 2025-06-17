@@ -21,7 +21,6 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.pmu.R;
 import com.example.pmu.fragments.AddFilterFragment_;
 import com.example.pmu.fragments.BaseFragment;
-import com.example.pmu.fragments.HomePageFragment;
 import com.example.pmu.fragments.HomePageFragment_;
 import com.example.pmu.fragments.LoginFragment_;
 import com.example.pmu.fragments.ProfileFragment_;
@@ -29,7 +28,7 @@ import com.example.pmu.fragments.SettingsFragment_;
 import com.example.pmu.fragments.WelcomeFragment_;
 import com.example.pmu.utils.AppService;
 import com.example.pmu.utils.LanguageManager;
-import com.example.pmu.utils.RequestBuilder;
+import com.example.pmu.utils.ServerCommunication;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -48,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_activity);
         AppService.getInstance().setContext(this);
         LanguageManager.setApplicationLanguage(this);
-        new RequestBuilder(this);
+        new ServerCommunication(this);
         LayoutInflater mInflater = LayoutInflater.from(this);
         RelativeLayout actionBarTitle = (RelativeLayout) mInflater.inflate(R.layout.actionbar_title, null, false);
         titleView = actionBarTitle.findViewById(R.id.MainTitle);

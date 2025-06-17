@@ -17,7 +17,7 @@ import com.example.pmu.R;
 import com.example.pmu.activity.MainActivity;
 import com.example.pmu.interfaces.LoginAndRegisterListener;
 import com.example.pmu.models.User;
-import com.example.pmu.utils.RequestBuilder;
+import com.example.pmu.utils.ServerCommunication;
 import com.example.pmu.utils.TDate;
 
 import org.androidannotations.annotations.Click;
@@ -78,6 +78,7 @@ public class RegisterFragment extends BaseFragment {
                 dobDatePicker.setText(TDate.convertToStringForCurrentLocale(calendar.getTime()));
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.getDatePicker().setMaxDate(calendar.getTimeInMillis());
         datePickerDialog.setButton(DatePickerDialog.BUTTON_POSITIVE, getString(R.string.done), datePickerDialog);
     }
 
@@ -107,10 +108,10 @@ public class RegisterFragment extends BaseFragment {
         user.setImage(img);
         if (password.equals(confirmPassword)) {
             if (isValid()) {
-                RequestBuilder.register(user, new LoginAndRegisterListener() {
+                ServerCommunication.register(user, new LoginAndRegisterListener() {
                     @Override
                     public void onSuccess() {
-                        RequestBuilder.login(user.getEmail(), user.getPassword(), new LoginAndRegisterListener() {
+                        ServerCommunication.login(user.getEmail(), user.getPassword(), new LoginAndRegisterListener() {
                             @Override
                             public void onSuccess() {
                                 progressBar.setVisibility(View.GONE);
