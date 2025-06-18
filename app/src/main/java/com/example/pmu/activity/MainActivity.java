@@ -218,19 +218,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void popToHomePageFragment() {
-        FragmentManager fm = getSupportFragmentManager();
-        int backStackEntryCount = fm.getBackStackEntryCount();
-
-        for (int i = backStackEntryCount - 1; i >= 0; i--) {
-            FragmentManager.BackStackEntry backEntry = fm.getBackStackEntryAt(i);
-            String fragmentTag = backEntry.getName();
-            Fragment fragment = fm.findFragmentByTag(fragmentTag);
-
-            if (fragment instanceof HomePageFragment_) {
-                return;
-            } else {
-                fm.popBackStack();
-            }
-        }
+        BottomNavigationView navBar = findViewById(R.id.navBar);
+        navBar.setSelectedItemId(R.id.map);
     }
 }

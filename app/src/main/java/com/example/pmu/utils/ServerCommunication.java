@@ -238,8 +238,8 @@ public class ServerCommunication {
                             marker.setTitle(loc.getString("address"));
                             marker.setType(loc.getString("category"));
                             marker.setLocation(loc.getString("region"));
-                            marker.setX(loc.getDouble("longitude"));
-                            marker.setY(loc.getDouble("latitude"));
+                            marker.setX(loc.getDouble("x"));
+                            marker.setY(loc.getDouble("y"));
                             locations.add(marker);
                         }
 
