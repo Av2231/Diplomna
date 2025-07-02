@@ -4,12 +4,13 @@
     android:background="@color/mainColor">
 
     <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="80dp">
 
 
             <ImageView
@@ -142,36 +143,44 @@
                 android:textSize="25sp" />
 
             <LinearLayout
-                android:id="@+id/timeSelectionLayout"
+                android:id="@+id/hoursLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:layout_below="@id/availableFrom"
-                android:orientation="horizontal"
-                android:padding="15dp"
-                android:weightSum="2">
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="50dp"
+                android:orientation="horizontal">
 
-                <Spinner
-                    android:id="@+id/startTimeSpinner"
+                <TextView
+                    android:id="@+id/fromHoursTextView"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:spinnerMode="dropdown" />
+                    android:background="@drawable/round_input"
+                    android:gravity="center"
+                    android:hint="@string/from" />
 
-                <Spinner
-                    android:id="@+id/endTimeSpinner"
+                <Space
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/toHoursTextView"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:spinnerMode="dropdown" />
+                    android:background="@drawable/round_input"
+                    android:gravity="center"
+                    android:hint="@string/to" />
             </LinearLayout>
+
 
             <Button
                 android:id="@+id/reserveButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/timeSelectionLayout"
+                android:layout_below="@id/hoursLayout"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/round_button"
                 android:text="@string/reserve"

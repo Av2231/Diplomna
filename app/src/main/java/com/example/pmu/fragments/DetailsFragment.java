@@ -2,7 +2,9 @@ package com.example.pmu.fragments;
 
 import static java.lang.Integer.parseInt;
 
+import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.icu.util.Calendar;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.pmu.R;
 import com.example.pmu.interfaces.AlreadyRatedLocationListener;
@@ -24,6 +27,11 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 @EFragment(com.example.pmu.R.layout.fragment_details)
 public class DetailsFragment extends BaseFragment {
 
@@ -36,6 +44,8 @@ public class DetailsFragment extends BaseFragment {
     TextView locationRating;
     @ViewById
     TextView locationAddress;
+    @ViewById
+    TextView fromHoursTextView, toHoursTextView;
     @ViewById
     TextView locationName;
     @ViewById
@@ -92,10 +102,89 @@ public class DetailsFragment extends BaseFragment {
         commentsFragment.setLocationId(generated_location_id);
         addFragment(commentsFragment);
     }
+    @Click
+    void fromHoursTextView() {
+        clearFocus();
+        showTimePickerDialog(fromHoursTextView, marker.getFromTime(), marker.getToTime());
+    }
 
     @Click
-    public void reserveButton(){
+    void toHoursTextView() {
+        clearFocus();
+        showTimePickerDialog(toHoursTextView, marker.getFromTime(), marker.getToTime());
+    }
 
+    private void showTimePickerDialog(TextView targetEditText, String fromTimeStr, String toTimeStr) {
+        Calendar calendar = Calendar.getInstance();
+
+        int minHour = 0, minMinute = 0, maxHour = 23, maxMinute = 59;
+
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+        try {
+            Date fromTime = format.parse(fromTimeStr);
+            Date toTime = format.parse(toTimeStr);
+
+            Calendar fromCal = Calendar.getInstance();
+            fromCal.setTime(fromTime);
+            minHour = fromCal.get(Calendar.HOUR_OF_DAY);
+            minMinute = fromCal.get(Calendar.MINUTE);
+
+            Calendar toCal = Calendar.getInstance();
+            toCal.setTime(toTime);
+            maxHour = toCal.get(Calendar.HOUR_OF_DAY);
+            maxMinute = toCal.get(Calendar.MINUTE);
+
+            // Set the initial time to the start time
+            calendar.set(Calendar.HOUR_OF_DAY, minHour);
+            calendar.set(Calendar.MINUTE, minMinute);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+            Toast.makeText(getActivity(), "Error parsing time range", Toast.LENGTH_SHORT).show();
+        }
+
+        int initialHour = calendar.get(Calendar.HOUR_OF_DAY);
+        int initialMinute = calendar.get(Calendar.MINUTE);
+
+        int finalMinHour = minHour;
+        int finalMaxHour = maxHour;
+        int finalMinMinute = minMinute;
+        int finalMaxMinute = maxMinute;
+        TimePickerDialog timePickerDialog = new TimePickerDialog(getActivity(),
+                (view, hourOfDay, minute) -> {
+                    boolean isValid = (hourOfDay > finalMinHour || (hourOfDay == finalMinHour && minute >= finalMinMinute)) &&
+                            (hourOfDay < finalMaxHour || (hourOfDay == finalMaxHour && minute <= finalMaxMinute));
+
+                    if (isValid) {
+                        String formattedTime = String.format(Locale.getDefault(), "%02d:%02d", hourOfDay, minute);
+                        targetEditText.setText(formattedTime);
+                    } else {
+                        String start = String.format("%02d:%02d", finalMinHour, finalMinMinute);
+                        String end = String.format("%02d:%02d", finalMaxHour, finalMaxMinute);
+                        Toast.makeText(getActivity(), "Select time between " + start + " and " + end, Toast.LENGTH_SHORT).show();
+                    }
+                }, initialHour, initialMinute, true);
+
+        timePickerDialog.setButton(TimePickerDialog.BUTTON_POSITIVE, getString(R.string.done), timePickerDialog);
+        timePickerDialog.show();
+    }
+    @Click
+    public void reserveButton(){
+        String fromTime = fromHoursTextView.getText().toString();
+        String toTime = toHoursTextView.getText().toString();
+
+        if (fromTime.isEmpty() || toTime.isEmpty()) {
+            Toast.makeText(getActivity(), "Please select both start and end time", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String fullFromTime = marker.getFromTime().split(" ")[0] + " " + fromTime;
+        String fullToTime = marker.getToTime().split(" ")[0] + " " + toTime;
+
+        ServerCommunication.sendDetailsForReservation(marker.getId(), fullFromTime, fullToTime, marker.getTitle(), marker.getType(),
+                response -> Toast.makeText(getActivity(), "Reservation saved successfully", Toast.LENGTH_SHORT).show(),
+                error -> Toast.makeText(getActivity(), "Failed to save reservation: " + error.getLocalizedMessage(), Toast.LENGTH_SHORT).show()
+        );
 
     }
 

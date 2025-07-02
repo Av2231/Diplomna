@@ -309,6 +309,36 @@ public class ServerCommunication {
         requestQueue.add(jsonObjectRequest);
     }
 
+    public static void sendDetailsForReservation(String locationId, String fromTime, String toTime, String title, String category, Response.Listener<JSONObject> successListener, Response.ErrorListener errorListener) {
+        String url = "http://" + ip + "/api/save_location_details";
+
+        JSONObject jsonBody = new JSONObject();
+        try {
+            jsonBody.put("location_id", locationId);
+            jsonBody.put("from_time", fromTime);
+            jsonBody.put("to_time", toTime);
+            jsonBody.put("title", title);
+            jsonBody.put("category", category);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            if (errorListener != null) {
+                errorListener.onErrorResponse(new VolleyError("Invalid input data."));
+            }
+            return;
+        }
+
+        JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, url, jsonBody, successListener, errorListener) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
+        };
+
+        requestQueue.add(jsonRequest);
+    }
+
     public static void addNewComment(String locationId, String userId, String comment, NewCommentListener listener) {
         String url = "http://" + ip + "/api/insert_comment";
 
