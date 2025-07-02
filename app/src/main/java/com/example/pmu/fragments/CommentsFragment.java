@@ -40,7 +40,6 @@ public class CommentsFragment extends BaseFragment {
        getComments(locationId);
         sendComment.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Your code.
                 String comment = writeCommentEdit.getText().toString();
                 addNewComment(locationId,String.valueOf(User.getInstance().getId()),comment);
                 ((MainActivity) requireActivity()).hideSoftKeyboard();

@@ -48,7 +48,6 @@ public class ReservationAdapter extends ArrayAdapter<LocationModel> {
             holder.placeNameTextView = row.findViewById(R.id.placeNameTextView);
             holder.categoryNameTextView = row.findViewById(R.id.categoryNameTextView);
             holder.fromTimeTextView = row.findViewById(R.id.fromTimeTextView);
-            holder.toTimeTextView = row.findViewById(R.id.toTimeTextView);
 
 
             row.setTag(holder);
@@ -59,8 +58,7 @@ public class ReservationAdapter extends ArrayAdapter<LocationModel> {
 
         holder.placeNameTextView.setText(locationModel.getPlace());
         holder.categoryNameTextView.setText(locationModel.getCategory());
-        holder.fromTimeTextView.setText(locationModel.getFromDate());
-        holder.toTimeTextView.setText(locationModel.getToDate());
+        holder.fromTimeTextView.setText(String.format("%s - %s", locationModel.getFromDate(), locationModel.getToDate()));
 
         return row;
     }
@@ -76,7 +74,6 @@ public class ReservationAdapter extends ArrayAdapter<LocationModel> {
         TextView placeNameTextView;
         TextView categoryNameTextView;
         TextView fromTimeTextView;
-        TextView toTimeTextView;
     }
 
 }
