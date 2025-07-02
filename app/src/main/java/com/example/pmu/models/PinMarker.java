@@ -9,14 +9,18 @@ public class PinMarker {
     private String location;
     private String id;
     private String type;
+    private String fromTime;
+    private String toTime;
 
 
-    public PinMarker(double x, double y, String title, String location, String id) {
+    public PinMarker(double x, double y, String title, String location, String id, String fromTime, String toTime) {
         this.x = x;
         this.y = y;
         this.title = title;
         this.location = location;
         this.id = id;
+        this.toTime = toTime;
+        this.fromTime = fromTime;
 
     }
 
@@ -26,6 +30,8 @@ public class PinMarker {
         this.title = "";
         this.location = "";
         this.id = "";
+        this.fromTime = "";
+        this.toTime = "";
 
     }
 
@@ -77,4 +83,19 @@ public class PinMarker {
         this.type = type;
     }
 
+    public String getFromTime() {
+        return fromTime;
+    }
+
+    public void setFromTime(String fromTime) {
+        this.fromTime = fromTime;
+    }
+
+    public String getToTime() {
+        return toTime;
+    }
+
+    public void setToTime(String toTime) {
+        this.toTime = toTime;
+    }
 }

@@ -49,5 +49,6 @@
     <string name="camera_forbidden">Достъпът до камерата е отказан</string>
     <string name="camera_failed">Проблем с камерата</string>
     <string name="invalid_registration">Моля въведете коректен имайл и имената Ви поне да са над 6 символа</string>
+    <string name="no_current_reservations">Нямате сегашни резервации</string>
 
 </resources>

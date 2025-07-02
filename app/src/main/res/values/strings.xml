@@ -49,4 +49,5 @@
     <string name="camera_forbidden">Access to camera was denied</string>
     <string name="camera_failed">Error with the camera</string>
     <string name="invalid_registration">Please make sure that you enter a valid email and your last name and first name are over 6 letters</string>
+    <string name="no_current_reservations">There are no current reservations</string>
 </resources>

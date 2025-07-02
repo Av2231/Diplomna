@@ -4,6 +4,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextClock;
+import android.widget.TextView;
 
 import com.example.pmu.R;
 import com.example.pmu.activity.MainActivity;
@@ -29,12 +31,23 @@ public class ReservationFragment extends BaseFragment {
     }
 
     @ViewById
+    TextView emptyTextView;
+
+    @ViewById
     ListView listView;
 
 
     @Override
     public void onResume(){
         super.onResume();
+
+        if (reservations.isEmpty()) {
+            emptyTextView.setVisibility(View.VISIBLE);
+            listView.setVisibility(View.GONE);
+        } else {
+            emptyTextView.setVisibility(View.GONE);
+            listView.setVisibility(View.VISIBLE);
+        }
         ReservationAdapter adapter = new ReservationAdapter(getActivity(), reservations);
         listView.setAdapter(adapter);
     }
