@@ -210,7 +210,8 @@ public class MainActivity extends AppCompatActivity {
     public void changeMapView(int mapViewType) {
         homePageFragment.changeMapView(mapViewType);
         AppService.getInstance().setSavedMap(String.valueOf(mapViewType));
-        popToHomePageFragment();
+        FragmentManager fm = getSupportFragmentManager();
+        fm.popBackStack();
     }
 
     public void popToHomePageFragment() {
@@ -227,6 +228,11 @@ public class MainActivity extends AppCompatActivity {
         if (topFragment != null && topFragment instanceof com.example.pmu.fragments.ReservationFragment_) {
             fm.popBackStack();
         }
+
+        if (topFragment != null && topFragment instanceof com.example.pmu.fragments.SettingsFragment_) {
+            fm.popBackStack();
+        }
+
         if (homePageFragment != null ) {
             homePageFragment.refreshMap();
         }
