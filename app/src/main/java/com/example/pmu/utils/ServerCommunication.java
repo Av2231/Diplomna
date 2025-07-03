@@ -37,7 +37,7 @@ import java.util.Map;
 
 public class ServerCommunication {
 
-    static String ip = "192.168.0.159:8080";
+    static String ip = "10.0.2.2:8080";
     static RequestQueue requestQueue;
 
     public ServerCommunication(Context context) {
@@ -173,14 +173,15 @@ public class ServerCommunication {
                         String status = response.getString("status");
                         if (status.equals("success")) {
                             JSONArray reservationsJson = response.getJSONArray("reservations");
+                            Log.e("qe", reservationsJson.toString());
                             ArrayList<LocationModel> reservations = new ArrayList<>();
                             for (int i = 0; i < reservationsJson.length(); i++) {
                                 JSONObject res = reservationsJson.getJSONObject(i);
                                 LocationModel reservation = new LocationModel();
-                                reservation.setPlace(res.getString("location_name"));
+                                reservation.setPlace(res.getString("locationName"));
                                 reservation.setCategory(res.getString("category"));
-                                String fromDateStr = res.getString("date_from");
-                                String toDateStr = res.getString("date_to");
+                                String fromDateStr = res.getString("fromDate");
+                                String toDateStr = res.getString("toDate");
                                 reservation.setFromDate(fromDateStr);
                                 reservation.setToDate(toDateStr);
                                 reservations.add(reservation);
@@ -230,6 +231,7 @@ public class ServerCommunication {
                     try {
                         JSONArray results = response.getJSONArray("locations");
                         ArrayList<PinMarker> locations = new ArrayList<>();
+                        Log.d("FullResponse", response.toString());
 
                         for (int i = 0; i < results.length(); i++) {
                             JSONObject loc = results.getJSONObject(i);
@@ -240,6 +242,12 @@ public class ServerCommunication {
                             marker.setLocation(loc.getString("region"));
                             marker.setX(loc.getDouble("x"));
                             marker.setY(loc.getDouble("y"));
+                            JSONArray availabilityArray = loc.getJSONArray("available_time");
+                            if (availabilityArray.length() > 0) {
+                                JSONObject timeBlock = availabilityArray.getJSONObject(0);
+                                marker.setFromTime(timeBlock.getString("from"));
+                                marker.setToTime(timeBlock.getString("to"));
+                            }
                             locations.add(marker);
                         }
 
@@ -309,12 +317,12 @@ public class ServerCommunication {
         requestQueue.add(jsonObjectRequest);
     }
 
-    public static void sendDetailsForReservation(String locationId, String fromTime, String toTime, String title, String category, Response.Listener<JSONObject> successListener, Response.ErrorListener errorListener) {
+    public static void sendDetailsForReservation(String fromTime, String toTime, String title, String category, Response.Listener<JSONObject> successListener, Response.ErrorListener errorListener) {
         String url = "http://" + ip + "/api/save_location_details";
 
         JSONObject jsonBody = new JSONObject();
         try {
-            jsonBody.put("location_id", locationId);
+            jsonBody.put("user_id", User.getInstance().getId());
             jsonBody.put("from_time", fromTime);
             jsonBody.put("to_time", toTime);
             jsonBody.put("title", title);
@@ -385,7 +393,7 @@ public class ServerCommunication {
     }
 
     public static void rateLocation(String locationId, String userId, String userRate, RateLocationListener listener) {
-        String url = "http://" + ip + "/api/insert_rating";
+        String url = "http://" + ip + "/api/rate-location";
 
         JSONObject jsonBody = new JSONObject();
         try {
@@ -428,50 +436,6 @@ public class ServerCommunication {
 
         requestQueue.add(jsonObjectRequest);
     }
-
-    public static void addNewLocation(String locationId, NewLocationListener listener) {
-        String url = "http://" + ip + "/api/insert_locations";
-
-        JSONObject jsonBody = new JSONObject();
-        try {
-            jsonBody.put("location_id", locationId);
-        } catch (JSONException e) {
-            e.printStackTrace();
-            listener.onFailure("Invalid input data.");
-            return;
-        }
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                Request.Method.POST, url, jsonBody, response -> {
-                    try {
-                        String status = response.getString("status");
-                        String message = response.getString("message");
-                        if ("success".equals(status)) {
-                            listener.onSuccess(response.getString("generated_location_id"));
-                        } else {
-                            listener.onFailure(message);
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        listener.onFailure("Response parsing error.");
-                    }
-                },
-                error -> {
-                    error.printStackTrace();
-                    listener.onFailure("Request failed: " + error.getLocalizedMessage());
-                }
-        ) {
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> headers = new HashMap<>();
-                headers.put("Content-Type", "application/json");
-                return headers;
-            }
-        };
-
-        requestQueue.add(jsonObjectRequest);
-    }
-
     public static void checkIfUserRatedLocation(String locationId, String userId, AlreadyRatedLocationListener listener) {
         String url = "http://" + ip + "/api/select_user_from_rating";
 

@@ -125,15 +125,12 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.map:
                     selectedFragment = homePageFragment;
-                    navBar.setSelectedItemId(0);
                     break;
                 case R.id.request:
                     selectedFragment = addFilterFragment;
-                    navBar.setSelectedItemId(1);
                     break;
                 case R.id.profile:
                     selectedFragment = profileFragment;
-                    navBar.setSelectedItemId(2);
                     break;
             }
 
@@ -142,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
 
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-            if (activeFragment != null && activeFragment.isAdded()) {
+            if (activeFragment != null && activeFragment != selectedFragment) {
                 transaction.hide(activeFragment);
             }
 
@@ -153,7 +150,6 @@ public class MainActivity extends AppCompatActivity {
             }
 
             transaction.commit();
-
             activeFragment = selectedFragment;
 
             return true;
@@ -220,5 +216,19 @@ public class MainActivity extends AppCompatActivity {
     public void popToHomePageFragment() {
         BottomNavigationView navBar = findViewById(R.id.navBar);
         navBar.setSelectedItemId(R.id.map);
+
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment topFragment = fm.findFragmentById(R.id.fragment);
+
+        if (topFragment != null && topFragment instanceof com.example.pmu.fragments.DetailsFragment_) {
+            fm.popBackStack();
+        }
+
+        if (topFragment != null && topFragment instanceof com.example.pmu.fragments.ReservationFragment_) {
+            fm.popBackStack();
+        }
+        if (homePageFragment != null ) {
+            homePageFragment.refreshMap();
+        }
     }
 }

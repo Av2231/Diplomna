@@ -44,16 +44,6 @@ public class HomePageFragment extends BaseFragment implements OnMapReadyCallback
         super.onCreate(savedInstanecs);
         simpleDataMap = new ArrayList<>();
         overrideBackPressed = true;
-        PinMarker marker = new PinMarker();
-        marker.setX(23.3219); // Географска дължина
-        marker.setY(42.6975); // Географска ширина
-        marker.setTitle("Стадион Васил Левски");
-        marker.setLocation("бул. Евлоги и Христо Георгиеви 38, София");
-        marker.setId();
-        marker.setType("Футбол");
-        marker.setFromTime("06/07/2025 19:00");
-        marker.setToTime("06/07/2025 22:00");
-        simpleDataMap.add(marker);
     }
 
     @Override
@@ -147,6 +137,16 @@ public class HomePageFragment extends BaseFragment implements OnMapReadyCallback
     public void changeMapView(int mapViewType) {
         if (mapG != null) {
             mapG.setMapType(mapViewType);
+        }
+    }
+
+    public void refreshMap() {
+        if (mapG != null) {
+            mapG.clear();
+            for (PinMarker marker : simpleDataMap) {
+                LatLng exactLocation = new LatLng(marker.getY(), marker.getX());
+                mapG.addMarker(new MarkerOptions().position(exactLocation).title(marker.getTitle()).snippet(marker.getLocation()));
+            }
         }
     }
 }

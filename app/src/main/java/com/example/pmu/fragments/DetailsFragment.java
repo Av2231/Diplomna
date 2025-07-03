@@ -1,7 +1,5 @@
 package com.example.pmu.fragments;
 
-import static java.lang.Integer.parseInt;
-
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.icu.util.Calendar;
@@ -15,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pmu.R;
+import com.example.pmu.activity.MainActivity;
 import com.example.pmu.interfaces.AlreadyRatedLocationListener;
 import com.example.pmu.interfaces.LocationRatingListener;
 import com.example.pmu.interfaces.NewLocationListener;
@@ -35,11 +34,6 @@ import java.util.Locale;
 @EFragment(com.example.pmu.R.layout.fragment_details)
 public class DetailsFragment extends BaseFragment {
 
-    private String concatenated_location_id;
-    private String generated_location_id;
-    private boolean alreadyRated;
-    private String rating;
-    private boolean existing;
     @ViewById
     TextView locationRating;
     @ViewById
@@ -52,11 +46,16 @@ public class DetailsFragment extends BaseFragment {
     Button rateButton;
     @ViewById
     Button directionsButton;
-    private PinMarker marker;
     @ViewById
     RatingBar ratingBar;
     @ViewById
     Button reserveButton;
+    private String concatenated_location_id;
+    private String generated_location_id;
+    private boolean alreadyRated;
+    private String rating;
+    private boolean existing;
+    private PinMarker marker;
 
     @Click
     void contentLayout() {
@@ -64,9 +63,8 @@ public class DetailsFragment extends BaseFragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstances){
+    public void onCreate(Bundle savedInstances) {
         super.onCreate(savedInstances);
-        addLocation(marker.getId());
         new Handler().postDelayed(() -> checkLocation(), 500);
     }
 
@@ -74,7 +72,7 @@ public class DetailsFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         locationName.setText(String.format("%s: %s", getString(R.string.name), marker.getTitle()));
-        locationAddress.setText(String.format("%s: %s",getString(R.string.address), marker.getLocation()));
+        locationAddress.setText(String.format("%s: %s", getString(R.string.address), marker.getLocation()));
         checkLocation();
     }
 
@@ -82,8 +80,8 @@ public class DetailsFragment extends BaseFragment {
     public void rateButton() {
         String rate = String.valueOf(ratingBar.getRating());
         checkLocation();
-        addRate(generated_location_id,User.getInstance().getId(), rate);
-        getRating(generated_location_id);
+        addRate(generated_location_id, User.getInstance().getId(), rate);
+        // getRating(generated_location_id);
     }
 
     @Click
@@ -102,6 +100,7 @@ public class DetailsFragment extends BaseFragment {
         commentsFragment.setLocationId(generated_location_id);
         addFragment(commentsFragment);
     }
+
     @Click
     void fromHoursTextView() {
         clearFocus();
@@ -134,7 +133,6 @@ public class DetailsFragment extends BaseFragment {
             maxHour = toCal.get(Calendar.HOUR_OF_DAY);
             maxMinute = toCal.get(Calendar.MINUTE);
 
-            // Set the initial time to the start time
             calendar.set(Calendar.HOUR_OF_DAY, minHour);
             calendar.set(Calendar.MINUTE, minMinute);
 
@@ -168,77 +166,75 @@ public class DetailsFragment extends BaseFragment {
         timePickerDialog.setButton(TimePickerDialog.BUTTON_POSITIVE, getString(R.string.done), timePickerDialog);
         timePickerDialog.show();
     }
-    @Click
-    public void reserveButton(){
-        String fromTime = fromHoursTextView.getText().toString();
-        String toTime = toHoursTextView.getText().toString();
 
-        if (fromTime.isEmpty() || toTime.isEmpty()) {
+    @Click
+    public void reserveButton() {
+        String fromHourStr = fromHoursTextView.getText().toString();
+        String toHourStr = toHoursTextView.getText().toString();
+        String dayStr = marker.getFromTime().split(" ")[0];
+
+        if (fromHourStr.isEmpty() || toHourStr.isEmpty()) {
             Toast.makeText(getActivity(), "Please select both start and end time", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        String fullFromTime = marker.getFromTime().split(" ")[0] + " " + fromTime;
-        String fullToTime = marker.getToTime().split(" ")[0] + " " + toTime;
-
-        ServerCommunication.sendDetailsForReservation(marker.getId(), fullFromTime, fullToTime, marker.getTitle(), marker.getType(),
-                response -> Toast.makeText(getActivity(), "Reservation saved successfully", Toast.LENGTH_SHORT).show(),
+        String fullFromTime = dayStr + " " + fromHourStr;
+        String fullToTime = dayStr + " " + toHourStr;
+        ServerCommunication.sendDetailsForReservation(fullFromTime, fullToTime, marker.getTitle(), marker.getType(),
+                response -> {
+                    Toast.makeText(getActivity(), "Reservation saved successfully", Toast.LENGTH_SHORT).show();
+                    ((MainActivity) getActivity()).popToHomePageFragment();
+                },
                 error -> Toast.makeText(getActivity(), "Failed to save reservation: " + error.getLocalizedMessage(), Toast.LENGTH_SHORT).show()
         );
 
     }
 
-    private void checkLocation(){
+    private void checkLocation() {
         ServerCommunication.checkIfLocationIsExisting(marker.getId(), new NewLocationListener() {
             @Override
             public void onSuccess(String locationId) {
                 generated_location_id = locationId;
-                if(generated_location_id.equals("0")){
+                if (generated_location_id.equals("0")) {
                     ratingBar.setRating(0);
                     rateButton.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     getRating(generated_location_id);
-                    checkIfUserRatedLocation(generated_location_id,User.getInstance().getId());
+                    checkIfUserRatedLocation(generated_location_id, User.getInstance().getId());
                 }
             }
+
             @Override
             public void onFailure(String message) {
 
             }
         });
     }
-    private void addLocation(String locationId){
-        ServerCommunication.addNewLocation(locationId, new NewLocationListener() {
-            @Override
-            public void onSuccess(String locationId) {
-                generated_location_id = locationId;
-            }
-            @Override
-            public void onFailure(String message) {
-            }
-        });
-    }
-    private void addRate(String generatedId,String userId,String rate){
+
+    private void addRate(String generatedId, String userId, String rate) {
         ServerCommunication.rateLocation(generatedId, userId, rate, new RateLocationListener() {
             @Override
             public void onSuccess() {
                 ratingBar.setIsIndicator(true);
                 rateButton.setVisibility(View.INVISIBLE);
             }
+
             @Override
             public void onFailure(String message) {
 
             }
         });
     }
-    private void getRating(String generatedId){
+
+    private void getRating(String generatedId) {
         ServerCommunication.getLocationRating(generatedId, new LocationRatingListener() {
             @Override
             public void onSuccess(String average_rating) {
                 double rating = Double.parseDouble(average_rating);
-                double result = Math.floor(rating*2)/2.0;
+                double result = Math.floor(rating * 2) / 2.0;
                 ratingBar.setRating(Float.parseFloat(String.valueOf(result)));
             }
+
             @Override
             public void onFailure(String message) {
                 locationRating.setText(message);
@@ -246,19 +242,20 @@ public class DetailsFragment extends BaseFragment {
         });
     }
 
-    private void checkIfUserRatedLocation(String generatedId,String userId){
+    private void checkIfUserRatedLocation(String generatedId, String userId) {
         ServerCommunication.checkIfUserRatedLocation(generatedId, userId, new AlreadyRatedLocationListener() {
             @Override
             public void onSuccess(String rated) {
-                if(rated.equals("true")){
+                if (rated.equals("true")) {
                     alreadyRated = true;
                     ratingBar.setIsIndicator(true);
                     rateButton.setVisibility(View.INVISIBLE);
-                }else{
+                } else {
                     alreadyRated = false;
                     rateButton.setVisibility(View.VISIBLE);
                 }
             }
+
             @Override
             public void onFailure(String message) {
             }
